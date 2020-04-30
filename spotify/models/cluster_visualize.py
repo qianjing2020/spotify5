@@ -54,10 +54,6 @@ data = np.hstack((principle_components, y_plot))
 pc_df = pd.DataFrame(data, columns=col_names)
 pc_df.head(3)
 
-# save the data for 3d plot in plotly
-save_data = np.array([pc_df['PCA0'].values, pc_df['PCA1'].values, pc_df['PCA2'].values, y])
-savetxt('data/cluster3D.csv', save_data, delimiter=',')
-
 # plot clusters
 fig = plt.subplots(figsize=(10,9))
 axes = plt.gca()
@@ -78,4 +74,6 @@ plt.savefig(filename, dpi=600, facecolor='w', edgecolor='w')
 # 3d plot 
 data = pc_df
 fig = px.scatter_3d(data, x='PCA0', y='PCA1', z='PCA2', color='y', opacity=0.2)
+fig.update_traces(marker=dict(size=2))
 fig.show()
+fig.write_html("data/Interactive_3D_cluster.html")
